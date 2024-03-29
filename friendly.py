@@ -1,25 +1,37 @@
-# Author: Brandi Fletcher
-# Section: CIS 225 01 
-# Date: 10/19/23
-# File: friendly.py
-#
-# Create a program displaying a seating chart for AA
-excluded_row = (5, 6, 13, 14)
-num_col = 4
-seat_col = 'A'
-seat_row = 1
-def main():
-    for curr_row in range(1, 25):
-        if curr_row in excluded_row:
-            #print('excluded')
-            curr_row += 1
+def create_seating_chart(rows, columns):
+    seating_chart = []
+    
+    for row in range(1, rows + 1):
+        if row in (5, 6, 13, 14):
             continue
-        for i in range(num_col):
-            curr_col = 'A'
-            print(f'{curr_row}{seat_col}')
-            curr_row += 1
-        
-        
-        
+        row_data = []
+        for col in columns:
+            if row <= 4:
+                if col == 'B':
+                    row_data.append(' ')
+                else:
+                    row_data.append(col)
+            else:
+                row_data.append(col)
+        seating_chart.append(row_data)
+    
+    return seating_chart
 
-main()
+def print_seating_chart(seating_chart):
+    for row_num, row in enumerate(seating_chart, 1):
+        if row_num in (5, 6, 13, 14):
+            continue
+        print(f"{row_num:2}", end=" ")
+        for seat in row:
+            print(seat, end="  ")
+        print()
+
+def main():
+    rows = 29
+    columns = ['A', 'B', 'C', 'D']
+    
+    seating_chart = create_seating_chart(rows, columns)
+    print_seating_chart(seating_chart)
+
+if __name__ == "__main__":
+    main()
